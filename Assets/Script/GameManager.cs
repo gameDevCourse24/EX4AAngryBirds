@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public int numOfPigs = 0;
+    private int numOfPigs = 0;
     [Tooltip("choose the number of bird you want to start with:")]
     [SerializeField]
     private int numOfBirdsToPlay = 3;
@@ -13,16 +13,26 @@ public class GameManager : MonoBehaviour
     public GameObject birdPrefab;
     [SerializeField] GameObject hookPrefab;
 
-    [SerializeField] float limitCollideUntilDie = 3f;
+    [SerializeField] float limitCollideUntilDie = 8f;
     [Tooltip("The maximum time that the bird live until she destroy, in second.")][SerializeField] float limitTimeUntilDie = 10f;
     [SerializeField] TextMeshProUGUI birdCountText;
+    [SerializeField] GameObject startPointForCamera;
+    [SerializeField] GameObject endPointForCamera;
     bool alreadyChackTheBirdInSceane = false;
     bool startToCountToDie = false;
+
+    [SerializeField] Camera mainCamera;
 
     private void Start()
     {
         ChackPigs();
         UpdateBirdCountText();
+        StartCameraMovement(startPointForCamera.transform.position, endPointForCamera.transform.position);
+    }
+
+    public void StartCameraMovement(Vector3 startPoint, Vector3 endPoint)
+    {
+        mainCamera.GetComponent<CameraFollower>().MoveCamera(startPoint, endPoint);
     }
     private void ChackPigs()
     {
@@ -53,18 +63,21 @@ public class GameManager : MonoBehaviour
             if (numOfPigs == 0)
             {
                 Debug.Log("Win");
+                mainCamera.GetComponent<CameraFollower>().PlayerToFollowXAxis = hookPrefab;
             }
              else
             {
                 if (!HasMoreBirds())
                 {
                     Debug.Log("lose");
+                    mainCamera.GetComponent<CameraFollower>().PlayerToFollowXAxis = hookPrefab;
                 }
                 else
                 {
                     ReloadBird();
                 }
             }
+            
             alreadyChackTheBirdInSceane = true;
         }
         if (GameObject.FindGameObjectsWithTag("Bird").Length >=1)
@@ -106,6 +119,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("New Bird Created and connected to hook");
         startToCountToDie = false;
         UpdateBirdCountText();
+        CameraFollower cameraFollower = mainCamera.GetComponent<CameraFollower>();
+        cameraFollower.PlayerToFollowXAxis = newBird;
     }
     private void UpdateBirdCountText()
     {

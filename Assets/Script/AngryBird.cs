@@ -10,6 +10,8 @@ public class AngryBird: MonoBehaviour {
     [SerializeField] Rigidbody2D hook = null;
     [SerializeField] float releaseTime = .15f;
     [SerializeField] float maxDragDistance = 2f;
+    [SerializeField] float CameraViewMultyply = 2f;
+
     private GameManager gameManager;
 
 
@@ -39,12 +41,16 @@ public class AngryBird: MonoBehaviour {
     private void OnMouseDown() {
         isMousePressed = true;
         rb.bodyType = RigidbodyType2D.Kinematic;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float distanceFromStart = Vector3.Distance(mousePos, transform.position);
+        Camera.main.GetComponent<CameraFollower>().resizeCamera(CameraViewMultyply);
     }
 
     private void OnMouseUp() {
         isMousePressed = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         StartCoroutine(ReleaseBall());
+        Camera.main.GetComponent<CameraFollower>().resizeCamera(1);
     }
 
     IEnumerator ReleaseBall() {

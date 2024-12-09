@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pig : MonoBehaviour
 {
     [SerializeField]
-    public int pigStrength = 2; // מספר הפעמים שציפור יכולה לפגוע בחזיר לפני שהוא נהרס
+    public int pigStrength = 1; // מספר הפעמים שציפור יכולה לפגוע בחזיר לפני שהוא נהרס
 
     private int hitCount = 0; // מונה הפגיעות בחזיר
 
