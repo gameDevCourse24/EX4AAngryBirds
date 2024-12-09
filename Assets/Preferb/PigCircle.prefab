@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4928128668024071209}
   - component: {fileID: 5711635824663297979}
   - component: {fileID: 4189954926882935183}
+  - component: {fileID: 6845054456551870806}
   m_Layer: 0
   m_Name: PigCircle
   m_TagString: Pig
@@ -152,3 +153,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6845054456551870806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880650890424758428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4e3fe58baf3f34b8592ffc2a80ce8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pigStrength: 2

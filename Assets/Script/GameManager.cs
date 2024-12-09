@@ -1,21 +1,30 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public int numOfPigs = 0;
     [Tooltip("choose the number of bird you want to start with:")]
     [SerializeField]
-    private int numOfBirds = 3;
+    private int numOfBirdsToPlay = 3;
     [SerializeField]
     public GameObject birdPrefab;
+    [SerializeField] GameObject hookPrefab;
 
-    // [SerializeField] float limitCollideUntilDie = 3f;
+    [SerializeField] float limitCollideUntilDie = 3f;
     [Tooltip("The maximum time that the bird live until she destroy, in second.")][SerializeField] float limitTimeUntilDie = 10f;
-
-    
+    [SerializeField] TextMeshProUGUI birdCountText;
+    bool alreadyChackTheBirdInSceane = false;
+    bool startToCountToDie = false;
 
     private void Start()
+    {
+        ChackPigs();
+        UpdateBirdCountText();
+    }
+    private void ChackPigs()
     {
         GameObject[] pigs = GameObject.FindGameObjectsWithTag("Pig");
         Debug.Log("There is " + pigs.Length + " Pigs.");
@@ -23,19 +32,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("There is a pig in location: " + pig.transform.position);
         }
-        numOfPigs = GameObject.FindGameObjectsWithTag("Pig").Length;
+        numOfPigs = pigs.Length;
     }
     public bool HasMoreBirds()
     {
-        return numOfBirds > 0; // בודק אם יש עוד ציפורים
-    }
-    public void SpawnBird(Vector3 position)
-    {
-        if (HasMoreBirds())
-        {
-            Instantiate(birdPrefab, position, Quaternion.identity); // טוען ציפור חדשה
-            numOfBirds--; // מפחית את כמות הציפורים
-        }
+        return numOfBirdsToPlay > 0;
     }
 
     public void RestartGame()
@@ -43,48 +44,71 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void Update()
+    {
+        if (GameObject.FindGameObjectsWithTag("Bird").Length == 0 && !alreadyChackTheBirdInSceane)
+        {
+            Debug.Log("There are no birds left.");
+            ChackPigs();
+            if (numOfPigs == 0)
+            {
+                Debug.Log("Win");
+            }
+             else
+            {
+                if (!HasMoreBirds())
+                {
+                    Debug.Log("lose");
+                }
+                else
+                {
+                    ReloadBird();
+                }
+            }
+            alreadyChackTheBirdInSceane = true;
+        }
+        if (GameObject.FindGameObjectsWithTag("Bird").Length >=1)
+        {
+            alreadyChackTheBirdInSceane = false;
+        }
+
+    }
+    private void ReloadBird()
+    {
+        numOfBirdsToPlay--;
+        CreateNewBird();
+    }
+    public void StartTimerUntilDie()
+    {
+        if (!startToCountToDie)
+        {
+            startToCountToDie = true;
+            StartCoroutine(TimeToDie());
+        }
+    }
+    IEnumerator TimeToDie()
+    {
+        Debug.Log("StartTimerUntilDie Function ");
+        yield return new WaitForSeconds(limitTimeUntilDie);
+        GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
+        foreach (GameObject bird in birds)
+        {
+            Destroy(bird);
+        }
+    }
+    private void CreateNewBird()
+    {
+        GameObject hook = GameObject.FindGameObjectWithTag("Hook");
+        GameObject newBird = Instantiate(birdPrefab, Vector3.zero, Quaternion.identity);
+        SpringJoint2D springJoint = newBird.GetComponent<SpringJoint2D>();
+        springJoint.connectedAnchor = Vector2.zero;
+        springJoint.connectedBody = hook.GetComponent<Rigidbody2D>();
+        Debug.Log("New Bird Created and connected to hook");
+        startToCountToDie = false;
+        UpdateBirdCountText();
+    }
+    private void UpdateBirdCountText()
+    {
+        birdCountText.text = numOfBirdsToPlay.ToString();
+    }
 }
-// IEnumerator DBaRemoveBirdAfterDelayll()
-//     {
-//         yield return new WaitForSeconds(limitTimeUntilDie); 
-//         {
-//             Destroy(gameObject);
-//         }
-//     }
-
-
-//     private void OnTriggerEnter2D(Collider2D other)
-//     {
-//         Debug.Log("The collision is with: " + other.name);
-//         if (other.tag == "Border")
-//         {
-//             Destroy(this.gameObject);
-
-//         }
-//     }
-//     private void OnCollisionEnter2D(Collision2D collision)
-//     {
-//         StartCoroutine (DBaRemoveBirdAfterDelayll());
-//         if (collision.gameObject.tag == "Pig")
-//         {
-//             Destroy(collision.gameObject);
-//         }
-//     }
-
-//     private void detroyBird()
-//     {
-//         Destroy(this.gameObject);
-//         if (usedBirds<numOfBirds)
-//         {
-//             CreateNewBird();
-//         }
-//         else
-//         {
-//             Debug.Log("game Over.");
-//         }
-//     }
-
-//     private void CreateNewBird()
-//     {
-
-//     }

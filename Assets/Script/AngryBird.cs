@@ -52,6 +52,11 @@ public class AngryBird: MonoBehaviour {
         yield return new WaitForSeconds(releaseTime); 
         GetComponent<SpringJoint2D>().enabled = false;
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Bird collide wuth " + collision.gameObject.name);
+        gameManager.StartTimerUntilDie();
+    }
     
     // private void SetScore(int newScore) {
     //     score = newScore;
