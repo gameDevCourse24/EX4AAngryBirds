@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject birdPrefab;
     [SerializeField] GameObject hookPrefab;
 
-    [Tooltip("The maximum time that the bird live until she destroy, in second.")][SerializeField] float limitTimeUntilDie = 10f;
+    [Tooltip("The maximum time that the bird live until she destroy, in second.")] [SerializeField] float limitTimeUntilDie = 10f;
     [SerializeField] TextMeshProUGUI birdCountText;
     [SerializeField] GameObject startPointForCamera;
     [SerializeField] GameObject endPointForCamera;
@@ -87,10 +87,9 @@ public class GameManager : MonoBehaviour
                     ReloadBird();
                 }
             }
-            
             alreadyChackTheBirdInSceane = true;
         }
-        if (GameObject.FindGameObjectsWithTag("Bird").Length >=1)
+        if (GameObject.FindGameObjectsWithTag("Bird").Length >= 1)
         {
             alreadyChackTheBirdInSceane = false;
         }
@@ -117,7 +116,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(limitTimeUntilDie);
         foreach (GameObject bird in birds)
         {
-            if (startToCountToDie){
+            if (startToCountToDie)
+            {
                 Destroy(bird);
             }
         }
@@ -139,7 +139,8 @@ public class GameManager : MonoBehaviour
     {
         birdCountText.text = numOfBirdsToPlay.ToString();
     }
-    public void GoToNextLevel(){
+    public void GoToNextLevel()
+    {
         SceneManager.LoadScene(nextSceneName);
     }
 }

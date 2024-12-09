@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class CameraFollower: MonoBehaviour
+public class CameraFollower : MonoBehaviour
 {
     public GameObject PlayerToFollowXAxis;
     [SerializeField] float regularSizeForCamera = 12;
     [SerializeField] float cameraSpeed = 2f;
     float targetX;
-    void start(){
+    void start()
+    {
         targetX = PlayerToFollowXAxis.transform.position.x;
         Camera cameraComponent = GetComponent<Camera>();
         if (cameraComponent != null)
@@ -15,14 +16,14 @@ public class CameraFollower: MonoBehaviour
             cameraComponent.orthographicSize = regularSizeForCamera;
         }
     }
-
     public void resizeCamera(float scaleMultuply)
     {
-        Camera.main.orthographicSize =regularSizeForCamera * scaleMultuply;
+        Camera.main.orthographicSize = regularSizeForCamera * scaleMultuply;
     }
     void Update()
     {
-        if (PlayerToFollowXAxis.transform.position.x>=targetX && PlayerToFollowXAxis != null){
+        if (PlayerToFollowXAxis.transform.position.x >= targetX && PlayerToFollowXAxis != null)
+        {
             Vector3 newPosition = new Vector3(PlayerToFollowXAxis.transform.position.x, transform.position.y, transform.position.z);
             transform.position = newPosition;
 
@@ -36,7 +37,7 @@ public class CameraFollower: MonoBehaviour
 
     private IEnumerator MoveCameraCoroutine(Vector3 startPoint, Vector3 endPoint)
     {
-        float duration = Vector3.Distance(startPoint, endPoint) / cameraSpeed; 
+        float duration = Vector3.Distance(startPoint, endPoint) / cameraSpeed;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -46,6 +47,6 @@ public class CameraFollower: MonoBehaviour
             yield return null;
         }
 
-        transform.position = endPoint; 
+        transform.position = endPoint;
     }
 }
