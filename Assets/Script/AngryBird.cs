@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 public class AngryBird: MonoBehaviour {
     [SerializeField] Rigidbody2D hook = null;
     [SerializeField] float releaseTime = .15f;
-    [SerializeField] float maxDragDistance = 2f;
-    [SerializeField] float CameraViewMultyply = 2f;
+    [SerializeField] float maxDragDistance = 5f;
+    [SerializeField] float CameraViewMultyply = 1.5f;
 
     private GameManager gameManager;
 
@@ -21,7 +21,7 @@ public class AngryBird: MonoBehaviour {
 
     private void Start() {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update() {
@@ -49,8 +49,8 @@ public class AngryBird: MonoBehaviour {
     private void OnMouseUp() {
         isMousePressed = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
-        StartCoroutine(ReleaseBall());
         Camera.main.GetComponent<CameraFollower>().resizeCamera(1);
+        StartCoroutine(ReleaseBall());
     }
 
     IEnumerator ReleaseBall() {

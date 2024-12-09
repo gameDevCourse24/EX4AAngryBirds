@@ -13,26 +13,31 @@ public class GameManager : MonoBehaviour
     public GameObject birdPrefab;
     [SerializeField] GameObject hookPrefab;
 
-    [SerializeField] float limitCollideUntilDie = 8f;
     [Tooltip("The maximum time that the bird live until she destroy, in second.")][SerializeField] float limitTimeUntilDie = 10f;
     [SerializeField] TextMeshProUGUI birdCountText;
     [SerializeField] GameObject startPointForCamera;
     [SerializeField] GameObject endPointForCamera;
+    [SerializeField] private GameObject winningPanel;
+    [SerializeField] private GameObject LosingPanel;
     bool alreadyChackTheBirdInSceane = false;
     bool startToCountToDie = false;
 
     [SerializeField] Camera mainCamera;
+    [SerializeField] private string nextSceneName;
 
     private void Start()
     {
         ChackPigs();
         UpdateBirdCountText();
+        winningPanel.SetActive(false);
+        LosingPanel.SetActive(false);
+        Time.timeScale = 1f;
         StartCameraMovement(startPointForCamera.transform.position, endPointForCamera.transform.position);
     }
 
     public void StartCameraMovement(Vector3 startPoint, Vector3 endPoint)
     {
-        mainCamera.GetComponent<CameraFollower>().MoveCamera(startPoint, endPoint);
+        mainCamera.GetComponent<CameraFollower>().MoveCamera(new Vector3(startPoint.x, 0, -10), new Vector3(endPoint.x, 0, -10));
     }
     private void ChackPigs()
     {
@@ -49,10 +54,11 @@ public class GameManager : MonoBehaviour
         return numOfBirdsToPlay > 0;
     }
 
-    public void RestartGame()
+    public void RestartLevel()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
     public void Update()
     {
@@ -64,13 +70,17 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Win");
                 mainCamera.GetComponent<CameraFollower>().PlayerToFollowXAxis = hookPrefab;
+                winningPanel.SetActive(true);
+                Time.timeScale = 0f;
             }
-             else
+            else
             {
                 if (!HasMoreBirds())
                 {
                     Debug.Log("lose");
                     mainCamera.GetComponent<CameraFollower>().PlayerToFollowXAxis = hookPrefab;
+                    LosingPanel.SetActive(true);
+                    Time.timeScale = 0f;
                 }
                 else
                 {
@@ -88,6 +98,7 @@ public class GameManager : MonoBehaviour
     }
     private void ReloadBird()
     {
+        startToCountToDie = false;
         numOfBirdsToPlay--;
         CreateNewBird();
     }
@@ -102,11 +113,13 @@ public class GameManager : MonoBehaviour
     IEnumerator TimeToDie()
     {
         Debug.Log("StartTimerUntilDie Function ");
-        yield return new WaitForSeconds(limitTimeUntilDie);
         GameObject[] birds = GameObject.FindGameObjectsWithTag("Bird");
+        yield return new WaitForSeconds(limitTimeUntilDie);
         foreach (GameObject bird in birds)
         {
-            Destroy(bird);
+            if (startToCountToDie){
+                Destroy(bird);
+            }
         }
     }
     private void CreateNewBird()
@@ -125,5 +138,8 @@ public class GameManager : MonoBehaviour
     private void UpdateBirdCountText()
     {
         birdCountText.text = numOfBirdsToPlay.ToString();
+    }
+    public void GoToNextLevel(){
+        SceneManager.LoadScene(nextSceneName);
     }
 }

@@ -4,11 +4,16 @@ using System.Collections;
 public class CameraFollower: MonoBehaviour
 {
     public GameObject PlayerToFollowXAxis;
-    [SerializeField] float regularSizeForCamera = 6f;
+    [SerializeField] float regularSizeForCamera = 12;
     [SerializeField] float cameraSpeed = 2f;
     float targetX;
     void start(){
         targetX = PlayerToFollowXAxis.transform.position.x;
+        Camera cameraComponent = GetComponent<Camera>();
+        if (cameraComponent != null)
+        {
+            cameraComponent.orthographicSize = regularSizeForCamera;
+        }
     }
 
     public void resizeCamera(float scaleMultuply)
@@ -25,7 +30,8 @@ public class CameraFollower: MonoBehaviour
     }
     public void MoveCamera(Vector3 startPoint, Vector3 endPoint)
     {
-        StartCoroutine(MoveCameraCoroutine(startPoint, endPoint));
+        StartCoroutine(MoveCameraCoroutine(endPoint, startPoint));
+
     }
 
     private IEnumerator MoveCameraCoroutine(Vector3 startPoint, Vector3 endPoint)
@@ -37,9 +43,9 @@ public class CameraFollower: MonoBehaviour
         {
             transform.position = Vector3.Lerp(startPoint, endPoint, (elapsedTime / duration));
             elapsedTime += Time.deltaTime;
-            yield return null; // מחכה עד לפריים הבא
+            yield return null;
         }
 
-        transform.position = endPoint; // לוודא שהמצלמה מגיעה לנקודת הסיום
+        transform.position = endPoint; 
     }
 }

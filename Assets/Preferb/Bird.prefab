@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +174,7 @@ SpringJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 0
-  m_Frequency: 1.5
+  m_Frequency: 1.1
 --- !u!114 &1408204869870489034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,4 +189,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hook: {fileID: 8222870706339483581, guid: e16d0c967cdcd6c4e99b696e61f681ea, type: 3}
   releaseTime: 0.15
-  maxDragDistance: 5
+  maxDragDistance: 6
+  CameraViewMultyply: 1.5

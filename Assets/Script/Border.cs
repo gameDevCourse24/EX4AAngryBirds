@@ -12,7 +12,7 @@ public class Border : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Destroy(other.gameObject);
         }
     }
 }
