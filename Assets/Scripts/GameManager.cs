@@ -17,15 +17,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI birdCountText;
     [SerializeField, Tooltip("The starting point for the camera to show the pigs in this level (Put here an empty object that is just after the pig that is farthest from the bird.)")] GameObject startPointForCamera;
     [SerializeField, Tooltip("The end point for the camera to show the pigs in this level (Put here an empty object that is on the main camera.)")] GameObject endPointForCamera;
-    [SerializeField,Tooltip("The panel that will appear when all the pigs are destroyed")] private GameObject winningPanel;
-    [SerializeField,Tooltip("The panel that will appear if you lose")] private GameObject LosingPanel;
-    [SerializeField,Tooltip("The scene you will be transported to when you win and press the /NextLevel/ button")] private string nextSceneName;
-    [SerializeField,Tooltip("The main camera")] Camera mainCamera;
-    
+    [SerializeField, Tooltip("The panel that will appear when all the pigs are destroyed")] private GameObject winningPanel;
+    [SerializeField, Tooltip("The panel that will appear if you lose")] private GameObject LosingPanel;
+    [SerializeField, Tooltip("The scene you will be transported to when you win and press the /NextLevel/ button")] private string nextSceneName;
+    [SerializeField, Tooltip("The main camera")] Camera mainCamera;
     
     /*
     alreadyChackTheBirdInSceane
-    I keep this variable so that we don't go into checking whether a bird exists all the time but only once unless the bird is destroyed
+    I keep this variable so that we don't go into checking whether a bird exists all the time but only once unless the bird is destroyed.
     */
     bool alreadyChackTheBirdInSceane = false;
 
@@ -86,7 +85,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    
     public void Update()
     {
         /*
