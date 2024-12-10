@@ -287,7 +287,6 @@ MonoBehaviour:
   numOfBirdsToPlay: 10
   birdPrefab: {fileID: 7987844292839293679, guid: 68983498bdfc154488461d0683f6b9e7, type: 3}
   hookPrefab: {fileID: 332149743}
-  limitCollideUntilDie: 3
   limitTimeUntilDie: 5
   birdCountText: {fileID: 392930687}
   startPointForCamera: {fileID: 714442325}
@@ -1137,7 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4397032005753748605, guid: 4da456cc60cbd254493cc0f770ca7f50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.2
+      value: 53.8
       objectReference: {fileID: 0}
     - target: {fileID: 4397032005753748605, guid: 4da456cc60cbd254493cc0f770ca7f50, type: 3}
       propertyPath: m_LocalPosition.y

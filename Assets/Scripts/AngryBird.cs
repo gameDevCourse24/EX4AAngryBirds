@@ -8,10 +8,14 @@ using UnityEngine.SceneManagement;
  */
 public class AngryBird : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D hook = null;
-    [SerializeField] float releaseTime = .15f;
-    [SerializeField] float maxDragDistance = 5f;
-    [SerializeField] float CameraViewMultyply = 1.5f;
+    [SerializeField, Tooltip("The Rigidbody that serves as the hook")]
+    Rigidbody2D hook = null;
+    [SerializeField, Tooltip("The time it takes to release the ball from the hook (in seconds)")]
+    float releaseTime = .15f;
+    [SerializeField, Tooltip("The maximum distance the ball can be dragged")]
+    float maxDragDistance = 5f;
+    [SerializeField, Tooltip("How match to make the camera bigger when you drag the bird")]
+    float CameraViewMultyply = 1.5f;
 
     private GameManager gameManager;
 
@@ -28,6 +32,7 @@ public class AngryBird : MonoBehaviour
 
     void Update()
     {
+        // Updates the position of the ball based on mouse input if the mouse is pressed.        
         if (isMousePressed)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -45,9 +50,11 @@ public class AngryBird : MonoBehaviour
     private void OnMouseDown()
     {
         isMousePressed = true;
+        // changes the Rigidbody to Kinematic for dragging.
         rb.bodyType = RigidbodyType2D.Kinematic;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float distanceFromStart = Vector3.Distance(mousePos, transform.position);
+        // Tell the GameManager Script that he need to scale up the camera view.
         Camera.main.GetComponent<CameraFollower>().resizeCamera(CameraViewMultyply);
     }
 
@@ -55,18 +62,22 @@ public class AngryBird : MonoBehaviour
     {
         isMousePressed = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
+        // Tell the GameManager Script that he need to normalize the camera view.
         Camera.main.GetComponent<CameraFollower>().resizeCamera(1);
+        // starts the release coroutine.
         StartCoroutine(ReleaseBall());
     }
 
     IEnumerator ReleaseBall()
     {
-        // Wait a short time, to let the physics engine operate the spring and give some initial speed to the ball.
+        // Waits for the specified release time before disabling the SpringJoint2D to release the ball.
         yield return new WaitForSeconds(releaseTime);
         GetComponent<SpringJoint2D>().enabled = false;
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+         // Logs the collision with another object and starts the timer in the GameManager.
+        //  When the timer is up, the bird will be destoied.
         Debug.Log("Bird collide wuth " + collision.gameObject.name);
         gameManager.StartTimerUntilDie();
     }
