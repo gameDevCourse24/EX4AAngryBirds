@@ -54,7 +54,7 @@ public class CameraFollower : MonoBehaviour
     // Move the camera from startPoint to endPoint
     public void MoveCamera(Vector3 startPoint, Vector3 endPoint)
     {
-        StartCoroutine(MoveCameraCoroutine(endPoint, startPoint)); // Start the coroutine to move the camera
+        StartCoroutine(MoveCameraCoroutine(startPoint, endPoint)); // Start the coroutine to move the camera
     }
 
     // Coroutine to smoothly move the camera from the startPoint to the endPoint
