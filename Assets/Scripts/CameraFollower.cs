@@ -5,7 +5,7 @@ using System.Collections;
 public class CameraFollower : MonoBehaviour
 {
     // The object you want to follow after
-    [SerializeField, Tooltip("The object you want to follow after")] 
+    [SerializeField, Tooltip("The object you want to follow after")]
     public GameObject PlayerToFollowXAxis;
 
     // The regular size for the camera

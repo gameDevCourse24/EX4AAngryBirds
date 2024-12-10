@@ -76,7 +76,7 @@ public class AngryBird : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-         // Logs the collision with another object and starts the timer in the GameManager.
+        // Logs the collision with another object and starts the timer in the GameManager.
         //  When the timer is up, the bird will be destoied.
         Debug.Log("Bird collide wuth " + collision.gameObject.name);
         gameManager.StartTimerUntilDie();
