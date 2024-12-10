@@ -287,15 +287,14 @@ MonoBehaviour:
   numOfBirdsToPlay: 5
   birdPrefab: {fileID: 7987844292839293679, guid: 68983498bdfc154488461d0683f6b9e7, type: 3}
   hookPrefab: {fileID: 332149743}
-  limitCollideUntilDie: 3
   limitTimeUntilDie: 5
   birdCountText: {fileID: 392930687}
   startPointForCamera: {fileID: 0}
   endPointForCamera: {fileID: 0}
   winningPanel: {fileID: 388929039}
   LosingPanel: {fileID: 1281656175}
-  mainCamera: {fileID: 519420031}
   nextSceneName: Level1
+  mainCamera: {fileID: 519420031}
 --- !u!4 &207563607
 Transform:
   m_ObjectHideFlags: 0
@@ -769,7 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerToFollowXAxis: {fileID: 332149743}
-  regularSizeForCamera: 6
+  regularSizeForCamera: 10
   cameraSpeed: 15
 --- !u!1 &575232756
 GameObject:
@@ -1816,37 +1815,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561562335}
   m_CullTransparentMesh: 1
---- !u!1 &1735787610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1735787611}
-  m_Layer: 0
-  m_Name: Enemies
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1735787611
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735787610}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.891323, y: 1.5294088, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1769101881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,5 +2567,4 @@ SceneRoots:
   - {fileID: 1781627827}
   - {fileID: 583871242}
   - {fileID: 1808359554}
-  - {fileID: 1735787611}
   - {fileID: 5286047888213872225}

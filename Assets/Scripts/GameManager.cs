@@ -56,7 +56,10 @@ public class GameManager : MonoBehaviour
         winningPanel.SetActive(false);
         LosingPanel.SetActive(false);
         Time.timeScale = 1f;
-        StartCameraMovement(startPointForCamera.transform.position, endPointForCamera.transform.position);
+        if (startPointForCamera != null && endPointForCamera != null)
+        {
+            StartCameraMovement(startPointForCamera.transform.position, endPointForCamera.transform.position);
+        }
     }
 
     public void StartCameraMovement(Vector3 startPoint, Vector3 endPoint)
