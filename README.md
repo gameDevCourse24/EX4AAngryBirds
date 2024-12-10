@@ -5,6 +5,8 @@
 זהו שיבוט של המשחק Angry Birds שנבנה ב-Unity.  
 במשחק, השחקנים משגרים ציפורים כדי להשמיד חזירים באמצעות מכניקת משיכה ושחרור.
 
+**[קישור למשחק](https://gamedevrel2024shovhalyon.itch.io/angrybirdsminiversion)**
+
 ## 📋 איך לשחק
 1. משוך את הציפור לאחור באמצעות העכבר.
 2. כוון לעבר החזירים.
