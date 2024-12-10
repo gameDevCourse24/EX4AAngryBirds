@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("The panel that will appear if you lose")] private GameObject LosingPanel;
     [SerializeField, Tooltip("The scene you will be transported to when you win and press the /NextLevel/ button")] private string nextSceneName;
     [SerializeField, Tooltip("The main camera")] Camera mainCamera;
-    
+
     /*
     alreadyChackTheBirdInSceane
     I keep this variable so that we don't go into checking whether a bird exists all the time but only once unless the bird is destroyed.
